@@ -8,25 +8,33 @@ model = torch.hub.load('ultralytics/yolov5', 'custom', path='model/deneme.onnx')
 
 cap = cv2.VideoCapture('video/640640.mp4')
 
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
+class dogfight():
 
-    # Perform inference on the frame
-    results = model(frame)
+    def __init__(self):
 
-    # Render the results on the frame
-    frame = results.render()[0]
+        self.yolo()
 
 
-    # Display the frame
-    cv2.imshow('YOLOv5 Video', frame)
+    def yolo(self):
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                break
 
-    # Exit on 'q' key press
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+            # Perform inference on the frame
+            results = model(frame)
 
+            # Render the results on the frame
+            frame = results.render()[0]
 
-cap.release()
-cv2.destroyAllWindows()
+            # Display the frame
+            cv2.imshow('YOLOv5 Video', frame)
+
+            # Exit on 'q' key press
+            if cv2.waitKey(30) & 0xFF == ord('q'):
+                break
+
+        cap.release()
+        cv2.destroyAllWindows()
+
+dogfight()
